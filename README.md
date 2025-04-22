@@ -1,74 +1,60 @@
 # Interview Scheduler
 
-A Python-based interview scheduling system that helps match available time slots between candidates and interviewers.
+A Flask-based web application for scheduling interviews by finding common available time slots between candidates and interviewers.
 
 ## Features
-
-- Time slot validation and parsing
-- Automatic matching of common available slots
-- Email confirmation system
+- Input available time slots for candidates and interviewers
+- Automatically find common available time slots
+- Send email confirmations for scheduled interviews
+- User-friendly interface with Bootstrap styling
 - Timezone support
-- Configuration management
 
-## Setup
+## Setup Instructions
 
-1. Clone the repository
-2. Install dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
-3. Copy `.env.example` to `.env` and configure your email settings:
-   ```bash
-   cp .env.example .env
-   ```
-4. Edit `.env` with your email credentials:
-   - For Gmail, you'll need to use an App Password
-   - You can generate an App Password by following [Google's instructions](https://support.google.com/accounts/answer/185833)
+1. Clone the repository:
+```bash
+git clone https://github.com/uuganbolor0419/interview-scheduler-.git
+cd interview-scheduler-
+```
 
-## Usage
+2. Create and activate virtual environment:
+```bash
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+```
 
-1. Import the `InterviewScheduler` class:
-   ```python
-   from interview_scheduler import InterviewScheduler
-   ```
+3. Install dependencies:
+```bash
+pip install -r requirements.txt
+```
 
-2. Create an instance of the scheduler:
-   ```python
-   scheduler = InterviewScheduler()
-   ```
+4. Set up environment variables:
+- Copy `.env.example` to `.env`
+- Update `.env` with your email settings:
+  ```
+  EMAIL_SENDER=your-email@gmail.com
+  EMAIL_PASSWORD=your-app-password
+  SMTP_SERVER=smtp.gmail.com
+  SMTP_PORT=465
+  TIMEZONE=UTC
+  ```
 
-3. Define available time slots for candidate and interviewer:
-   ```python
-   candidate_slots = [
-       "2025-04-22 10:00",
-       "2025-04-22 14:00",
-       "2025-04-23 11:00"
-   ]
-   
-   interviewer_slots = [
-       "2025-04-22 14:00",
-       "2025-04-23 09:00",
-       "2025-04-23 11:00"
-   ]
-   ```
+5. Run the application:
+```bash
+python app.py
+```
 
-4. Find common slots:
-   ```python
-   common_slots = scheduler.get_common_slots(candidate_slots, interviewer_slots)
-   ```
+6. Access the application at: http://localhost:5000
 
-5. Send confirmation email (optional):
-   ```python
-   if common_slots:
-       selected_slot = common_slots[0]
-       scheduler.send_confirmation_email("candidate@example.com", selected_slot)
-   ```
+## Email Configuration
+To enable email functionality:
+1. Use a Gmail account
+2. Enable 2-Step Verification in your Google Account
+3. Generate an App Password for the application
+4. Use the App Password in your `.env` file
 
-## Time Format
-
-Time slots should be provided in the format: `YYYY-MM-DD HH:MM`
-Example: `2025-04-22 14:00`
-
-## Contributing
-
-Feel free to submit issues and enhancement requests! 
+## Technologies Used
+- Python
+- Flask
+- Bootstrap
+- Gmail SMTP
