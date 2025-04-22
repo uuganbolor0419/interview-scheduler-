@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interview Scheduler</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            padding-top: 2rem;
+        }
+        .card {
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            border: none;
+        }
+        .form-control {
+            border-radius: 8px;
+        }
+        .btn-primary {
+            background-color: #4b6cb7;
+            border: none;
+            border-radius: 8px;
+        }
+        .btn-primary:hover {
+            background-color: #3a539b;
+        }
+        .header-icon {
+            font-size: 3rem;
+            color: #4b6cb7;
+        }
+        .flash-messages {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card mb-4 p-4">
+                    <div class="card-body text-center">
+                        <div class="header-icon mb-3">
+                            <i class="fas fa-calendar-check"></i> 📅
+                        </div>
+                        <h1 class="card-title mb-4">Interview Scheduler</h1>
+                        
+                        <!-- Flash Messages -->
+                        <div class="flash-messages">
+                            {% with messages = get_flashed_messages(with_categories=true) %}
+                                {% if messages %}
+                                    {% for category, message in messages %}
+                                        <div class="alert alert-{{ 'success' if category == 'success' else 'danger' }}">
+                                            {{ message }}
+                                        </div>
+                                    {% endfor %}
+                                {% endif %}
+                            {% endwith %}
+                        </div>
+                        
+                        <form action="{{ url_for('schedule') }}" method="post">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-group">
+                                        <label for="candidate_slots"><strong>Candidate Available Slots</strong></label>
+                                        <textarea id="candidate_slots" name="candidate_slots" class="form-control" rows="5" placeholder="Enter one time slot per line&#10;Format: YYYY-MM-DD HH:MM&#10;Example:&#10;2025-04-22 10:00&#10;2025-04-22 14:00">2025-04-22 10:00
+2025-04-22 14:00
+2025-04-23 11:00</textarea>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-group">
+                                        <label for="interviewer_slots"><strong>Interviewer Available Slots</strong></label>
+                                        <textarea id="interviewer_slots" name="interviewer_slots" class="form-control" rows="5" placeholder="Enter one time slot per line&#10;Format: YYYY-MM-DD HH:MM&#10;Example:&#10;2025-04-22 14:00&#10;2025-04-23 11:00">2025-04-22 14:00
+2025-04-23 09:00
+2025-04-23 11:00</textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-lg mt-3">Find Common Slots</button>
+                        </form>
+                    </div>
+                </div>
+                
+                <div class="card p-4">
+                    <div class="card-body">
+                        <h4>Instructions</h4>
+                        <p>Enter available time slots for both the candidate and interviewer, one slot per line.</p>
+                        <p><strong>Format:</strong> YYYY-MM-DD HH:MM</p>
+                        <p><strong>Example:</strong> 2025-04-22 14:00</p>
+                        <p>The system will find common available slots and allow you to send confirmation emails.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html> 

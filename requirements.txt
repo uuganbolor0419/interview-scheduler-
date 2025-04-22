@@ -1,0 +1,8 @@
+python-dateutil==2.8.2
+pytz==2024.1
+python-dotenv==1.0.1
+flask==2.3.3
+EMAIL_SENDER=uugasosor@gmail.com
+EMAIL_PASSWORD=lptw rcar ppsi oihi
+SMTP_SERVER=smtp.gmail.com
+SMTP_PORT=465 
